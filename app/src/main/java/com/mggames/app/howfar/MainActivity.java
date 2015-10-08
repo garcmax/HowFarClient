@@ -158,7 +158,7 @@ public class MainActivity extends AppCompatActivity implements
             // UI to show the correct latitude and longitude.
             if (savedInstanceState.keySet().contains(LOCATION_KEY)) {
                 // Since LOCATION_KEY was found in the Bundle, we can be sure that
-                // mCurrentLocationis not null.
+                // mLastLocation is not null.
                 mLastLocation = savedInstanceState.getParcelable(LOCATION_KEY);
             }
 
