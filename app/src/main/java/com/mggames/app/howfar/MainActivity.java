@@ -2,6 +2,7 @@ package com.mggames.app.howfar;
 
 import android.location.Location;
 import android.os.Bundle;
+import android.os.Debug;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
@@ -16,9 +17,17 @@ import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.LocationListener;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
+import com.mggames.app.models.HowFarUser;
 
+import java.io.IOException;
 import java.text.DateFormat;
 import java.util.Date;
+import java.util.List;
+
+import retrofit.Call;
+import retrofit.GsonConverterFactory;
+import retrofit.Response;
+import retrofit.Retrofit;
 
 public class MainActivity extends AppCompatActivity implements
         GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener, LocationListener {
@@ -48,6 +57,18 @@ public class MainActivity extends AppCompatActivity implements
         buildGoogleApiClient();
         createLocationRequest();
 
+        Retrofit retrofit = new Retrofit.Builder().baseUrl("http://localhost:8080").addConverterFactory(GsonConverterFactory.create()).build();
+        HowFarService service = retrofit.create(HowFarService.class);
+
+        Call<List<HowFarUser>> listCall = service.listUsers();
+
+
+        try {
+            Response<List<HowFarUser>> execute = listCall.execute();
+            List<HowFarUser> body = execute.body();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         mLatitudeText = (TextView) findViewById(R.id.mLatitudeText);
         mLongitudeText = (TextView) findViewById(R.id.mLongitudeText);
         mLastUpdateTimeText = (TextView) findViewById(R.id.mLastUpdateTimeText);
