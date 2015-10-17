@@ -25,6 +25,7 @@ import java.util.Date;
 import java.util.List;
 
 import retrofit.Call;
+import retrofit.Callback;
 import retrofit.GsonConverterFactory;
 import retrofit.Response;
 import retrofit.Retrofit;
@@ -32,6 +33,7 @@ import retrofit.Retrofit;
 public class MainActivity extends AppCompatActivity implements
         GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener, LocationListener {
 
+    private static final String HOW_FAR_SERVER_URL = "http://192.168.1.6:8080";
     private static final String REQUESTING_LOCATION_UPDATES_KEY = "requestLocation";
     private static final String LOCATION_KEY = "lastLocation";
     private static final String LAST_UPDATED_TIME_STRING_KEY = "lastUpdateTime";
@@ -57,18 +59,30 @@ public class MainActivity extends AppCompatActivity implements
         buildGoogleApiClient();
         createLocationRequest();
 
-        Retrofit retrofit = new Retrofit.Builder().baseUrl("http://localhost:8080").addConverterFactory(GsonConverterFactory.create()).build();
+        Retrofit retrofit = new Retrofit.Builder().baseUrl(HOW_FAR_SERVER_URL).addConverterFactory(GsonConverterFactory.create()).build();
         HowFarService service = retrofit.create(HowFarService.class);
 
-        Call<List<HowFarUser>> listCall = service.listUsers();
+        Call<List<HowFarUser>> users = service.listUsers();
+        users.enqueue(new Callback<List<HowFarUser>>() {
+            @Override
+            public void onResponse(Response<List<HowFarUser>> response, Retrofit retrofit) {
+                response.body();
+                response.headers();
+            }
+
+            @Override
+            public void onFailure(Throwable t) {
+
+            }
+        });
 
 
-        try {
+        /*try {
             Response<List<HowFarUser>> execute = listCall.execute();
             List<HowFarUser> body = execute.body();
         } catch (IOException e) {
             e.printStackTrace();
-        }
+        }*/
         mLatitudeText = (TextView) findViewById(R.id.mLatitudeText);
         mLongitudeText = (TextView) findViewById(R.id.mLongitudeText);
         mLastUpdateTimeText = (TextView) findViewById(R.id.mLastUpdateTimeText);
