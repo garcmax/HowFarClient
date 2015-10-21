@@ -34,4 +34,9 @@ public class HowFarUser {
     public void setCreationDate(Date creationDate) {
         this.creationDate = creationDate;
     }
+
+    public HowFarUser(String login, String password) {
+        this.login = login;
+        this.password = password;
+    }
 }
