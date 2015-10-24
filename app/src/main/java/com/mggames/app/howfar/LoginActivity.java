@@ -167,7 +167,7 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     /**
-     * Represents an asynchronous login/registration task used to authenticate
+     * Asynchronous login/registration task used to authenticate
      * the user.
      */
     private void userLoginTask(String login, String password, boolean isLogin)  {
