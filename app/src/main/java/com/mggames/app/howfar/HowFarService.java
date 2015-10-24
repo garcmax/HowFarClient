@@ -28,4 +28,9 @@ public interface HowFarService {
      */
     @POST("/api/login")
     Call<ErrorBody> login(@Body HowFarUser user);
+
+    /**
+     * Register
+     */
+    Call<ErrorBody> register(@Body HowFarUser user);
 }

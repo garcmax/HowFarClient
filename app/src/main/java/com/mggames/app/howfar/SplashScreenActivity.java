@@ -14,21 +14,10 @@ public class SplashScreenActivity extends AppCompatActivity {
         setContentView(R.layout.activity_splash_screen);
 
         final Button loginButton = (Button) findViewById(R.id.login_button);
-        loginButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                createIntent(true);
-            }
-        });
+        loginButton.setOnClickListener(view -> createIntent(true));
 
         final Button registerButton = (Button) findViewById(R.id.register_button);
-        registerButton.setOnClickListener(new View.OnClickListener(){
-
-            @Override
-            public void onClick(View v) {
-                createIntent(false);
-            }
-        });
+        registerButton.setOnClickListener(view -> createIntent(false));
     }
 
     private void createIntent(boolean value) {
