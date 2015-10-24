@@ -29,6 +29,7 @@ import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.mggames.app.models.ErrorBody;
 import com.mggames.app.models.HowFarUser;
@@ -76,6 +77,12 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+        Intent myIntent = getIntent();
+        boolean isLogin = myIntent.getBooleanExtra(getString(R.string.is_login), true);
+
+        Toast toast = Toast.makeText(getApplicationContext(), String.valueOf(isLogin), Toast.LENGTH_SHORT);
+        toast.show();
+
         // Set up the login form.
         mEmailView = (AutoCompleteTextView) findViewById(R.id.email);
         populateAutoComplete();
@@ -301,7 +308,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
      */
     private void userLoginTask(String login, String password)  {
 
-        Retrofit retrofit = new Retrofit.Builder().baseUrl(HOW_FAR_SERVER_URL_HTTP).addConverterFactory(GsonConverterFactory.create()).build();
+        Retrofit retrofit = new Retrofit.Builder().baseUrl(HOW_FAR_SERVER_URL_HTTPS).addConverterFactory(GsonConverterFactory.create()).build();
         HowFarService service = retrofit.create(HowFarService.class);
 
         HowFarUser user = new HowFarUser(login, password);
