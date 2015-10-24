@@ -8,11 +8,13 @@ import android.support.v7.app.AppCompatActivity;
 
 import android.os.Build;
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import com.mggames.app.models.ErrorBody;
 import com.mggames.app.models.HowFarUser;
@@ -48,23 +50,31 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         Intent myIntent = getIntent();
-        boolean isLogin = myIntent.getBooleanExtra(getString(R.string.is_login), true);
+        final boolean isLogin = myIntent.getBooleanExtra(getString(R.string.is_login), true);
 
         // Set up the login form.
         mEmailView = (AutoCompleteTextView) findViewById(R.id.email);
         mPasswordView = (EditText) findViewById(R.id.password);
 
-        mPasswordView.setOnEditorActionListener((textView, id, keyEvent) -> {
-            if (id == R.id.login || id == EditorInfo.IME_NULL) {
-                attemptLogin(isLogin);
-                return true;
+        mPasswordView.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView textView, int id, KeyEvent keyEvent) {
+                if (id == R.id.login || id == EditorInfo.IME_NULL) {
+                    LoginActivity.this.attemptLogin(isLogin);
+                    return true;
+                }
+                return false;
             }
-            return false;
         });
 
         Button mEmailSignInButton = (Button) findViewById(R.id.email_sign_in_button);
         mEmailSignInButton.setText(isLogin ? getString(R.string.action_sign_in_short) : getString(R.string.register));
-        mEmailSignInButton.setOnClickListener(view -> attemptLogin(isLogin));
+        mEmailSignInButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                LoginActivity.this.attemptLogin(isLogin);
+            }
+        });
 
         mLoginFormView = findViewById(R.id.login_form);
         mProgressView = findViewById(R.id.login_progress);
@@ -172,7 +182,7 @@ public class LoginActivity extends AppCompatActivity {
      */
     private void userLoginTask(String login, String password, boolean isLogin)  {
 
-        Retrofit retrofit = new Retrofit.Builder().baseUrl(HOW_FAR_SERVER_URL_HTTPS).addConverterFactory(GsonConverterFactory.create()).build();
+        Retrofit retrofit = new Retrofit.Builder().baseUrl(HOW_FAR_SERVER_URL_HTTP).addConverterFactory(GsonConverterFactory.create()).build();
         HowFarService service = retrofit.create(HowFarService.class);
 
         HowFarUser user = new HowFarUser(login, password);
