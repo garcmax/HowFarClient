@@ -32,5 +32,6 @@ public interface HowFarService {
     /**
      * Register
      */
+    @POST("/api/register")
     Call<ErrorBody> register(@Body HowFarUser user);
 }
