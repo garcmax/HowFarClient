@@ -6,7 +6,14 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
+/**
+ * Activity by default : invite the user to log or register
+ */
 public class SplashScreenActivity extends AppCompatActivity {
+
+    public SplashScreenActivity() {
+
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,10 +37,10 @@ public class SplashScreenActivity extends AppCompatActivity {
         });
     }
 
-    private void createIntent(boolean value) {
+    private void createIntent(boolean isLogin) {
         finish();
         Intent myIntent = new Intent(SplashScreenActivity.this, LoginActivity.class);
-        myIntent.putExtra(getString(R.string.is_login), value);
+        myIntent.putExtra(getString(R.string.is_login), isLogin);
         SplashScreenActivity.this.startActivity(myIntent);
     }
 }

@@ -1,12 +1,11 @@
 package com.mggames.app.howfar;
 
-import com.mggames.app.models.ErrorBody;
-import com.mggames.app.models.HowFarUser;
+import com.mggames.app.domain.ErrorBody;
+import com.mggames.app.domain.HowFarUser;
 
 import java.util.List;
 
 import retrofit.Call;
-import retrofit.Callback;
 import retrofit.http.Body;
 import retrofit.http.GET;
 import retrofit.http.POST;

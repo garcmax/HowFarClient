@@ -1,4 +1,4 @@
-package com.mggames.app.models;
+package com.mggames.app.domain;
 
 import java.util.ArrayList;
 import java.util.List;

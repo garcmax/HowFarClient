@@ -16,8 +16,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import com.mggames.app.models.ErrorBody;
-import com.mggames.app.models.HowFarUser;
+import com.mggames.app.domain.ErrorBody;
+import com.mggames.app.domain.HowFarUser;
 
 import retrofit.Call;
 import retrofit.Callback;
@@ -26,7 +26,7 @@ import retrofit.Response;
 import retrofit.Retrofit;
 
 /**
- * A login screen that offers login via email/password.
+ * A login/register screen that offers login or registering via username/password.
  */
 public class LoginActivity extends AppCompatActivity {
 

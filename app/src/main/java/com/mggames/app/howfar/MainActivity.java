@@ -2,7 +2,6 @@ package com.mggames.app.howfar;
 
 import android.location.Location;
 import android.os.Bundle;
-import android.os.Debug;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
@@ -17,9 +16,8 @@ import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.LocationListener;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
-import com.mggames.app.models.HowFarUser;
+import com.mggames.app.domain.HowFarUser;
 
-import java.io.IOException;
 import java.text.DateFormat;
 import java.util.Date;
 import java.util.List;

@@ -1,4 +1,4 @@
-package com.mggames.app.models;
+package com.mggames.app.domain;
 
 /**
  * Created by Maxou on 21/10/2015.
